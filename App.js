@@ -31,7 +31,6 @@ export default () => {
                 <Button
                   onPress={() => navigation.push("Account")}
                   title="Account"
-                  color="#fff"
                 />
               )
             })}
