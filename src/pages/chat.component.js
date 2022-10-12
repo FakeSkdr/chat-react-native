@@ -31,18 +31,16 @@ export const Chat = ({ messagingService = MessagingService.getInstance() }) => {
       <Messages style={styles.chatContainer}></Messages>
 
       <View style={styles.footer}>
-        <View style={styles.formContainer}>
-          <TextInput
-            style={styles.input}
-            value={message}
-            onChangeText={setMessage}
-            placeholder="Enter your message"
-            keyboardType="default"
-          />
-          <TouchableOpacity onPress={sendMessage} style={styles.button}>
-            <Text style={styles.buttonText}>Send a message</Text>
-          </TouchableOpacity>
-        </View>
+        <TextInput
+          style={styles.input}
+          value={message}
+          onChangeText={setMessage}
+          placeholder="Enter your message"
+          keyboardType="default"
+        />
+        <TouchableOpacity onPress={sendMessage} style={styles.button}>
+          <Text style={styles.buttonText}>Send a message</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -61,7 +59,6 @@ const styles = StyleSheet.create({
   footer: {
     justifyContent: "flex-end"
   },
-  formContainer: {},
   input: {
     height: 40,
     borderWidth: 1,

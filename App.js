@@ -1,37 +1,50 @@
 import React from "react";
 import { Provider } from "react-redux";
-import { StyleSheet, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import { Button } from "react-native";
 
-import { LoginModal } from "./src/components/login.modal";
-import { Chat } from "./src/pages/chat.component";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { store } from "./src/store/store";
 
-function App() {
-  return (
-    <View style={styles.container}>
-      <LoginModal></LoginModal>
+import { LoginModal } from "./src/components/login.modal";
 
-      <Chat></Chat>
+import { Chat } from "./src/pages/chat.component";
+import { Account } from "./src/pages/account.component";
 
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginVertical: 40,
-    marginHorizontal: 20
-  }
-});
+const Stack = createNativeStackNavigator();
 
 export default () => {
   return (
     <Provider store={store}>
-      <App />
+      <LoginModal></LoginModal>
+
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen
+            name="Chat"
+            component={Chat}
+            options={({ navigation }) => ({
+              title: "Just chatting",
+              headerRight: () => (
+                <Button
+                  onPress={() => navigation.push("Account")}
+                  title="Account"
+                  color="#fff"
+                />
+              )
+            })}
+          />
+          <Stack.Screen
+            name="Account"
+            component={Account}
+            options={{ title: "My account" }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+
+      <StatusBar style="auto" />
     </Provider>
   );
 };
