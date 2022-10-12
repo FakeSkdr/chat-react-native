@@ -9,13 +9,11 @@ export const Messages = ({
   const [chatlogs, setChatlogs] = useState([]);
 
   useEffect(() => {
-    messagingService.setupListeners({ onMessages });
+    messagingService.setupListeners({ onMessage });
   }, []);
 
-  const onMessages = (messages = []) => {
-    const logs = Object.keys(messages).map(key => messages[key]);
-
-    setChatlogs(logs);
+  const onMessage = message => {
+    setChatlogs(logs => [...logs, message]);
   };
 
   return (

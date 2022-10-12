@@ -1,8 +1,9 @@
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue, set } from "firebase/database";
+import firebase from "firebase/app";
+import "firebase/database";
 
 export class MessagingService {
   static instance = null;
+  database = null;
 
   static getInstance() {
     if (MessagingService.instance == null) {
@@ -25,32 +26,30 @@ export class MessagingService {
       appId: "1:42372774729:web:9188d0b395ed4bcda13898"
     };
 
-    initializeApp(firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
+
+    database = firebase.database();
   }
 
   sendMessage({ id, username, message }) {
-    const db = getDatabase();
-
     const timestamp = Date.now();
 
-    const reference = ref(db, "messages/" + timestamp);
+    const reference = database.ref("messages/" + timestamp);
 
-    set(reference, {
+    reference.set({
       username,
       message,
       id
     });
   }
 
-  setupListeners({ onMessages }) {
-    const db = getDatabase();
+  setupListeners({ onMessage }) {
+    const reference = database.ref("messages/");
 
-    const reference = ref(db, "messages/");
+    reference.on("child_added", snapshot => {
+      const message = snapshot.val();
 
-    onValue(reference, snapshot => {
-      const messages = snapshot.val();
-
-      onMessages(messages);
+      onMessage(message);
     });
   }
 }
