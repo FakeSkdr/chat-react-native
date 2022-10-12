@@ -7,19 +7,24 @@ import {
   View,
   TextInput
 } from "react-native";
+import { useDispatch } from "react-redux";
 
-export const UsernameModal = ({ onUsernameSelect }) => {
+import { setUsername } from "../store/userSlice";
+
+export const LoginModal = () => {
+  const dispatch = useDispatch();
+
   const [modalVisible, setModalVisible] = useState(true);
-  const [username, setUsername] = useState("");
+  const [user, setUser] = useState("");
 
   const onClose = () => {
-    if (username.trim().length === 0) {
+    if (user.trim().length === 0) {
       return;
     }
 
     setModalVisible(!modalVisible);
 
-    onUsernameSelect({ username });
+    dispatch(setUsername(user));
   };
 
   return (
@@ -35,8 +40,8 @@ export const UsernameModal = ({ onUsernameSelect }) => {
         <View style={styles.modalView}>
           <TextInput
             style={styles.input}
-            value={username}
-            onChangeText={setUsername}
+            value={user}
+            onChangeText={setUser}
             placeholder="Enter your username"
             keyboardType="default"
           />
