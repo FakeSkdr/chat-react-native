@@ -13,7 +13,12 @@ import { LoginModal } from "./src/components/login.modal";
 import { Chat } from "./src/pages/chat.component";
 import { Account } from "./src/pages/account.component";
 
-const Stack = createNativeStackNavigator();
+export type RootNativeStackParamList = {
+  Chat: undefined;
+  Account: undefined;
+};
+
+const Stack = createNativeStackNavigator<RootNativeStackParamList>();
 
 export default () => {
   return (
@@ -21,7 +26,7 @@ export default () => {
       <LoginModal></LoginModal>
 
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator initialRouteName="Chat">
           <Stack.Screen
             name="Chat"
             component={Chat}
@@ -32,7 +37,7 @@ export default () => {
                   onPress={() => navigation.push("Account")}
                   title="Account"
                 />
-              )
+              ),
             })}
           />
           <Stack.Screen

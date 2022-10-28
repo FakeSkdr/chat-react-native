@@ -1,11 +1,13 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, onValue, set } from "firebase/database";
 
+import { Message } from "./messaging.types";
+
 export class MessagingService {
-  static instance = null;
+  static instance: MessagingService;
 
   static getInstance() {
-    if (MessagingService.instance == null) {
+    if (!MessagingService.instance) {
       MessagingService.instance = new MessagingService();
     }
 
@@ -22,13 +24,13 @@ export class MessagingService {
       projectId: "chat-6f772",
       storageBucket: "chat-6f772.appspot.com",
       messagingSenderId: "42372774729",
-      appId: "1:42372774729:web:9188d0b395ed4bcda13898"
+      appId: "1:42372774729:web:9188d0b395ed4bcda13898",
     };
 
     initializeApp(firebaseConfig);
   }
 
-  sendMessage({ id, username, message }) {
+  sendMessage({ id, username, message }: Message) {
     const db = getDatabase();
 
     const timestamp = Date.now();
@@ -38,16 +40,20 @@ export class MessagingService {
     set(reference, {
       username,
       message,
-      id
+      id,
     });
   }
 
-  setupListeners({ onMessages }) {
+  setupListeners({
+    onMessages,
+  }: {
+    onMessages: (messages: { [key: string]: Message }) => void;
+  }): void {
     const db = getDatabase();
 
     const reference = ref(db, "messages/");
 
-    onValue(reference, snapshot => {
+    onValue(reference, (snapshot) => {
       const messages = snapshot.val();
 
       onMessages(messages);

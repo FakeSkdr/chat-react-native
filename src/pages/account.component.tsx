@@ -2,11 +2,19 @@ import React, { useState } from "react";
 import { StyleSheet, Text, Pressable, View, TextInput } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setUsername } from "../store/userSlice";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-export const Account = ({ navigation }) => {
+import { setUsername } from "../store/userSlice";
+import { RootState } from "../store/store";
+import { RootNativeStackParamList } from "../../App";
+
+type Props = {
+  navigation: NativeStackNavigationProp<RootNativeStackParamList, "Account">;
+};
+
+export const Account = ({ navigation }: Props) => {
   const dispatch = useDispatch();
-  const username = useSelector(state => state.user.username);
+  const username = useSelector((state: RootState) => state.user.username);
 
   const [user, setUser] = useState(username);
 
@@ -40,20 +48,20 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 20,
     padding: 10,
-    elevation: 2
+    elevation: 2,
   },
   buttonClose: {
-    backgroundColor: "#2196F3"
+    backgroundColor: "#2196F3",
   },
   textStyle: {
     color: "white",
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
   input: {
     height: 40,
     borderWidth: 1,
     padding: 10,
-    margin: 10
-  }
+    margin: 10,
+  },
 });

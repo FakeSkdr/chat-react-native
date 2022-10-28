@@ -5,7 +5,7 @@ import {
   Text,
   Pressable,
   View,
-  TextInput
+  TextInput,
 } from "react-native";
 import { useDispatch } from "react-redux";
 
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+    marginTop: 22,
   },
   modalView: {
     margin: 20,
@@ -73,33 +73,33 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   button: {
     borderRadius: 20,
     padding: 10,
-    elevation: 2
+    elevation: 2,
   },
   buttonClose: {
-    backgroundColor: "#2196F3"
+    backgroundColor: "#2196F3",
   },
   textStyle: {
     color: "white",
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center"
+    textAlign: "center",
   },
   input: {
     height: 40,
     borderWidth: 1,
     padding: 10,
-    margin: 10
-  }
+    margin: 10,
+  },
 });

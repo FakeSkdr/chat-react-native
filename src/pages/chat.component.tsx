@@ -4,7 +4,7 @@ import {
   Text,
   View,
   TouchableOpacity,
-  TextInput
+  TextInput,
 } from "react-native";
 import uuid from "react-native-uuid";
 import { useSelector } from "react-redux";
@@ -12,8 +12,10 @@ import { useSelector } from "react-redux";
 import { Messages } from "../components/messages.component";
 import { MessagingService } from "../services/messaging.service";
 
+import { RootState } from "../store/store";
+
 export const Chat = ({ messagingService = MessagingService.getInstance() }) => {
-  const username = useSelector(state => state.user.username);
+  const username = useSelector((state: RootState) => state.user.username);
   const [message, setMessage] = useState("");
 
   const sendMessage = () => {
@@ -21,7 +23,11 @@ export const Chat = ({ messagingService = MessagingService.getInstance() }) => {
       return;
     }
 
-    messagingService.sendMessage({ username, message, id: uuid.v4() });
+    messagingService.sendMessage({
+      username,
+      message,
+      id: uuid.v4() as string,
+    });
 
     setMessage("");
   };
@@ -50,31 +56,31 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginVertical: 40,
-    marginHorizontal: 20
+    marginHorizontal: 20,
   },
   chatContainer: {
     flex: 1,
-    marginVertical: 10
+    marginVertical: 10,
   },
   footer: {
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
   },
   input: {
     height: 40,
     borderWidth: 1,
-    padding: 10
+    padding: 10,
   },
   button: {
     backgroundColor: "#090",
     margin: 12,
     borderRadius: 5,
-    height: 40
+    height: 40,
   },
   buttonText: {
     fontSize: 20,
     color: "#fff",
     textAlign: "center",
     margin: "auto",
-    padding: 5
-  }
+    padding: 5,
+  },
 });
